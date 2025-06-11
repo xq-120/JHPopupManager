@@ -1,0 +1,6 @@
+framework module JHGrandPopupView {
+  umbrella header "JHGrandPopupView-umbrella.h"
+
+  export *
+  module * { export * }
+}

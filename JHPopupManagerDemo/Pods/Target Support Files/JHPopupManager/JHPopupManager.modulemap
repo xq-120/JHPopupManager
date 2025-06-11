@@ -1,0 +1,6 @@
+framework module JHPopupManager {
+  umbrella header "JHPopupManager-umbrella.h"
+
+  export *
+  module * { export * }
+}
