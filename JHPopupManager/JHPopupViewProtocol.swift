@@ -13,9 +13,11 @@ public protocol JHPopupViewProtocol: AnyObject {
     
     var priority: Int { get set }
     
-    func show() -> Void
+    func show(in view: UIView?, animated: Bool, completion: (() -> Void)?)
     
-    func hidden() -> Void
+    func show(in viewController: UIViewController?, animated: Bool, completion: (() -> Void)?)
     
-    func shouldPopup(in viewController: UIViewController) -> Bool
+    func hidden(withAnimated animated: Bool, completion: (() -> Void)?)
+    
+    func shouldPopup(in viewController: UIViewController?) -> Bool
 }
