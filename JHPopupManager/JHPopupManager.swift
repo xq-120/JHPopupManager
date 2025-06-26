@@ -9,13 +9,41 @@ import UIKit
 
 public class JHPopupManager {
     
-    static let manager = JHPopupManager.init()
+    public static let manager = JHPopupManager.init()
     
     private var popupItems: [JHPopupItem] = []
     
     private var curPopupItem: JHPopupItem?
     
-    static public func show(popupView: JHPopupViewProtocol, in view: UIView?, animated: Bool, completion: (() -> Void)?) {
+    private init() {
+        let observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.allActivities.rawValue, true, 0) { [weak self] ob, activity in
+            guard let self = self else {return}
+            self.handleRunLoopActivity(activity: activity)
+        }
+        CFRunLoopAddObserver(CFRunLoopGetMain(), observer, .commonModes)
+    }
+    
+    func handleRunLoopActivity(activity: CFRunLoopActivity) {
+        switch activity {
+        case .entry:
+            NSLog("activity-->entry")
+        case .beforeTimers:
+            NSLog("activity-->beforeTimers")
+        case .beforeSources:
+            NSLog("activity-->beforeSources")
+        case .beforeWaiting:
+            NSLog("activity-->beforeWaiting")
+            dequeue()
+        case .afterWaiting:
+            NSLog("activity-->afterWaiting")
+        case .exit:
+            NSLog("activity-->exit")
+        default:
+            NSLog("未知")
+        }
+    }
+    
+    static public func show(popupView: JHPopupViewProtocol, view: UIView?, animated: Bool, completion: (() -> Void)?) {
         let item = JHPopupItem.init(popupView: popupView, type: .view)
         item.view = view
         item.animated = animated
@@ -23,7 +51,7 @@ public class JHPopupManager {
         JHPopupManager.manager.enqueue(item)
     }
     
-    static public func show(popupView: JHPopupViewProtocol, in viewController: UIViewController?, animated: Bool, completion: (() -> Void)?) {
+    static public func show(popupView: JHPopupViewProtocol, viewController: UIViewController?, animated: Bool, completion: (() -> Void)?) {
         let item = JHPopupItem.init(popupView: popupView, type: .viewController)
         item.viewController = viewController
         item.animated = animated
@@ -45,7 +73,7 @@ public class JHPopupManager {
     }
     
     func remove(_ popupView: JHPopupViewProtocol) {
-        if let index = popupItems.firstIndex(where: {$0 === popupView}) {
+        if let index = popupItems.firstIndex(where: {$0.popupView === popupView}) {
             popupItems.remove(at: index)
         }
     }
@@ -56,6 +84,10 @@ public class JHPopupManager {
     
     func dequeue() {
         if popupItems.isEmpty {
+            return
+        }
+        
+        if curPopupItem != nil {
             return
         }
         

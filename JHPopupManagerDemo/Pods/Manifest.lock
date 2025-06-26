@@ -1,10 +1,10 @@
 PODS:
-  - JHGrandPopupView (1.3.0)
+  - JHGrandPopupView (1.4.0)
   - JHPopupManager (1.0.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
-  - JHGrandPopupView
+  - JHGrandPopupView (= 1.4.0)
   - JHPopupManager (from `../`)
   - SnapKit (~> 5.0.0)
 
@@ -18,10 +18,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  JHGrandPopupView: 705486d5997702aab6d3303ac95340cf7d7a41ef
+  JHGrandPopupView: 1b950294a74bde962b42bf66bbbff91397d4d0af
   JHPopupManager: 36c1fa135dd245302865b0ef3459f1728563e5de
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: a8b2658ed53fd210c63b8dc80fca52c37e365867
+PODFILE CHECKSUM: f81b614c31936c98c960368c15f30cf870752ce5
 
 COCOAPODS: 1.16.2

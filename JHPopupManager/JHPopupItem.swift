@@ -15,9 +15,9 @@ enum JHPopupByType {
 class JHPopupItem {
     var popupView: JHPopupViewProtocol
     
-    var view: UIView?
+    weak var view: UIView?
     
-    var viewController: UIViewController?
+    weak var viewController: UIViewController?
     
     var type: JHPopupByType = .view
     

@@ -1,8 +1,8 @@
 //
-//  JHGrandPopupBaseOutAnimation.h
+//  JHGrandPopupBaseAnimation.h
 //  JHGrandPopupView
 //
-//  Created by xuequan on 2024/11/14.
+//  Created by xuequan on 2024/4/5.
 //
 
 #import <Foundation/Foundation.h>
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JHGrandPopupBaseOutAnimation : NSObject <JHGrandPopupAnimationProtocol, UIViewControllerAnimatedTransitioning>
+@interface JHGrandPopupBaseAnimation : NSObject <JHGrandPopupViewAnimationProtocol, UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic, assign) NSTimeInterval animateDuration;
 

@@ -5,14 +5,14 @@
 //  Created by xuequan on 2024/4/5.
 //
 
-#import "JHGrandPopupBaseInAnimation.h"
+#import "JHGrandPopupBaseAnimation.h"
 
-@implementation JHGrandPopupBaseInAnimation
+@implementation JHGrandPopupBaseAnimation
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _animateDuration = 0.35;
+        _animateDuration = 0.25;
     }
     return self;
 }

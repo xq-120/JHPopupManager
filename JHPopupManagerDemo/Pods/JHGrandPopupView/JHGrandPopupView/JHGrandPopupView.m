@@ -19,7 +19,7 @@
 @implementation JHGrandPopupView
 
 - (instancetype)init {
-    return [self initWithFrame:CGRectZero];
+    return [self initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+@_exported import JHPopupManager
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

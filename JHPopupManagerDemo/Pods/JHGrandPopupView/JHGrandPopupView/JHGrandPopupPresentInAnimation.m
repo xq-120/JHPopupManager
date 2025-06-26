@@ -13,12 +13,13 @@
 - (void)animateWithPopupView:(JHGrandPopupView * _Nonnull)popupView completion:(void (^ _Nullable)(void))completion {
     [popupView layoutIfNeeded];
     
-    CGRect fromFrame = popupView.contentView.frame;
+    CGRect currentFrame = popupView.contentView.frame;
+    
+    CGRect fromFrame = currentFrame;
     fromFrame.origin.y = popupView.frame.size.height + popupView.contentView.frame.size.height;
     popupView.contentView.frame = fromFrame;
     
-    CGRect toFrame = popupView.contentView.frame;
-    toFrame.origin.y = popupView.frame.size.height - popupView.contentView.frame.size.height;
+    CGRect toFrame = currentFrame;
     
     popupView.alpha = 0;
 

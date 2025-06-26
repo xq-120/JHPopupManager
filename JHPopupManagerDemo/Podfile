@@ -7,6 +7,6 @@ target 'JHPopupManagerDemo' do
 
 pod 'JHPopupManager', :path => '../'
 pod 'SnapKit', '~> 5.0.0'
-pod 'JHGrandPopupView'
+pod 'JHGrandPopupView', '1.4.0'
 
 end

@@ -45,7 +45,11 @@
 }
 
 - (void)showIn:(UIViewController *)viewController completion:(void (^)(void))completion {
-    [self showIn:viewController isWrapInNavigationController:NO animated:YES completion:completion];
+    [self showIn:viewController animated:YES completion:completion];
+}
+
+- (void)showIn:(UIViewController *)viewController animated:(BOOL)animated completion:(void (^)(void))completion {
+    [self showIn:viewController isWrapInNavigationController:NO animated:animated completion:completion];
 }
 
 - (void)showIn:(UIViewController *)viewController isWrapInNavigationController:(BOOL)isWrap animated:(BOOL)animated completion:(void (^)(void))completion {

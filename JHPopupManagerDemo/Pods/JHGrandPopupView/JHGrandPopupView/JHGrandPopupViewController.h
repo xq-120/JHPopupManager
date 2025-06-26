@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^ _Nullable onTouchBackViewActionBlk)(void);
 
-/// 子类的所有子视图都应该添加在contentView上。
+/// 子类的所有子视图建议都添加在contentView上。
 /// 在设置从左到右，从上到下的约束后，contentView的size是自适应的。
 @property (nonatomic, readonly, strong) UIView * _Nonnull contentView;
 
@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// animated:YES
 - (void)showIn:(UIViewController *)viewController completion:(void (^ _Nullable)(void))completion;
+
+- (void)showIn:(UIViewController *)viewController animated:(BOOL)animated completion:(void (^ _Nullable)(void))completion;
 
 /// 在指定viewController上弹出弹窗。
 /// - Parameters:

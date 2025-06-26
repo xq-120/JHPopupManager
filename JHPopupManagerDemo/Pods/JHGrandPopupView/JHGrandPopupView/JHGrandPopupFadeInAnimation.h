@@ -6,11 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JHGrandPopupBaseInAnimation.h"
+#import "JHGrandPopupBaseAnimation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JHGrandPopupFadeInAnimation : JHGrandPopupBaseInAnimation
+@interface JHGrandPopupFadeInAnimation : JHGrandPopupBaseAnimation
 
 
 @end
