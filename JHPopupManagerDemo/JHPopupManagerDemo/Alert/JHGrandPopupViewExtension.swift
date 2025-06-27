@@ -7,7 +7,7 @@
 
 import Foundation
 import JHPopupManager
-import JHGrandPopupView
+import JHGrandPopupView //oc类
 
 extension JHGrandPopupView: @retroactive JHPopupViewProtocol {
     
