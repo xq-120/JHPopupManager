@@ -41,19 +41,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         chatBtn.frame = CGRect(x: 50, y: CGRectGetMaxY(submitBtn.frame) + 100, width: 200, height: 44)
         
         let alert1 = AuditionEndBuyAlertView.init()
-        JHPopupManager.show(popupView: alert1, view: GetAppWindow(), animated: true) {
+        JHPopupManager.show(popupView: alert1, animated: true) {
             NSLog("AuditionEndBuyAlertView弹出")
         }
         let alert2 = BroadcastBeginAlertView.init()
-        JHPopupManager.show(popupView: alert2, view: GetAppWindow(), animated: true) {
+        JHPopupManager.show(popupView: alert2, animated: true) {
             NSLog("BroadcastBeginAlertView弹出")
         }
         let alert3 = LoveKeyAlertPopupView.init()
-        JHPopupManager.show(popupView: alert3, view: GetAppWindow(), animated: true) {
+        JHPopupManager.show(popupView: alert3, animated: true) {
             NSLog("LoveKeyAlertPopupView弹出")
         }
         let alert4 = SupportGroupVoteAlertView.init()
-        JHPopupManager.show(popupView: alert4, view: GetAppWindow(), animated: true) {
+        JHPopupManager.show(popupView: alert4, animated: true) {
             NSLog("SupportGroupVoteAlertView弹出")
         }
     }

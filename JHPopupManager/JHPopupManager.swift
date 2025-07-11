@@ -43,17 +43,8 @@ public class JHPopupManager {
         }
     }
     
-    static public func show(popupView: JHPopupViewProtocol, view: UIView?, animated: Bool, completion: (() -> Void)?) {
-        let item = JHPopupItem.init(popupView: popupView, type: .view)
-        item.view = view
-        item.animated = animated
-        item.onShowCompletion = completion
-        JHPopupManager.manager.enqueue(item)
-    }
-    
-    static public func show(popupView: JHPopupViewProtocol, viewController: UIViewController?, animated: Bool, completion: (() -> Void)?) {
-        let item = JHPopupItem.init(popupView: popupView, type: .viewController)
-        item.viewController = viewController
+    static public func show(popupView: JHPopupViewProtocol, animated: Bool, completion: (() -> Void)?) {
+        let item = JHPopupItem.init(popupView: popupView)
         item.animated = animated
         item.onShowCompletion = completion
         JHPopupManager.manager.enqueue(item)
@@ -106,12 +97,7 @@ public class JHPopupManager {
     
     func show(_ item: JHPopupItem) {
         curPopupItem = item
-        
-        if item.type == .view {
-            item.popupView.show(animated: item.animated, completion: item.onShowCompletion)
-        } else {
-            item.popupView.show(animated: item.animated, completion: item.onShowCompletion)
-        }
+        item.popupView.show(animated: item.animated, completion: item.onShowCompletion)
     }
     
     //MARK: - 工具方法

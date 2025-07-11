@@ -77,8 +77,7 @@ class AuditionEndBuyAlertView: JHGrandPopupView  {
     
     init() {
         super.init(frame: .zero)
-        self.inAnimator = GrandPopupSlideInAnimation.init()
-        self.outAnimator = GrandPopupSlideOutAnimation.init()
+        self.animator = GrandPopupSlideAnimation.init()
         initialSubviews()
         makeSubviewsConstraints()
     }
@@ -88,13 +87,16 @@ class AuditionEndBuyAlertView: JHGrandPopupView  {
     }
     
     @objc func closeBtnDidClicked(sender: UIButton) -> Void {
-        JHPopupManager.hidden(popupView: self, animated: true, completion: nil)
+//        JHPopupManager.hidden(popupView: self, animated: true, completion: nil)
+        hidden()
     }
     
     @objc func confirmBtnDidClicked(sender: UIButton) -> Void {
-        let vc = UIViewController.topViewController(base: GetAppWindow()?.rootViewController)
-        vc?.navigationController?.pushViewController(TeacherDetailViewController.init(), animated: true)
-        JHPopupManager.hidden(popupView: self, animated: true, completion: buyBtnDidClickedBlk)
+//        JHPopupManager.hidden(popupView: self, animated: true, completion: buyBtnDidClickedBlk)
+        hidden(completion: {
+            let vc = UIViewController.topViewController(base: GetAppWindow()?.rootViewController)
+            vc?.navigationController?.pushViewController(TeacherDetailViewController.init(), animated: true)
+        })
     }
     
     func initialSubviews() {

@@ -74,6 +74,7 @@ class SupportGroupVoteAlertView: JHGrandPopupView, UICollectionViewDelegateFlowL
     
     init() {
         super.init(frame: .zero)
+        animator = JHGrandPopupPresentAnimation()
         
         initializeSubviews()
         makeSubviewContraints()
@@ -140,9 +141,9 @@ class SupportGroupVoteAlertView: JHGrandPopupView, UICollectionViewDelegateFlowL
     
     @objc func confirmBtnDidClicked(sender: Any?) -> Void {
         confirmBtnDidClickedBlk?(self.selectedItem)
-//        hidden(completion: nil)
+        hidden(completion: nil)
         
-        JHPopupManager.hidden(popupView: self, animated: true, completion: nil)
+//        JHPopupManager.hidden(popupView: self, animated: true, completion: nil)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

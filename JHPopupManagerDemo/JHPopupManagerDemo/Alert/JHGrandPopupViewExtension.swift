@@ -19,6 +19,9 @@ extension JHGrandPopupView: @retroactive JHPopupViewProtocol {
     }
     
     public func show(animated: Bool, completion: (() -> Void)?) {
+        if self.inView == nil {
+            self.inView = GetAppWindow()
+        }
         self.show(in: self.inView, animated: animated, completion: completion)
     }
     
