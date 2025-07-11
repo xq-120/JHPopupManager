@@ -117,11 +117,9 @@ class LoveKeyAlertPopupView: JHGrandPopupView {
     
     @objc private func closeBtnDidClicked(_ sender: UIButton) {
         hidden(completion: closeBtnActionBlk)
-//        JHPopupManager.hidden(popupView: self, animated: true, completion: self.closeBtnActionBlk)
     }
     
     @objc private func okBtnDidClicked(_ sender: UIButton) {
         hidden(completion: okBtnActionBlk)
-//        JHPopupManager.hidden(popupView: self, animated: true, completion: self.okBtnActionBlk)
     }
 }

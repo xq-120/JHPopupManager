@@ -18,18 +18,44 @@ extension JHGrandPopupView: @retroactive JHPopupViewProtocol {
         return 0
     }
     
-    public func show(animated: Bool, completion: (() -> Void)?) {
+    public func jh_show(animated: Bool, completion: (() -> Void)?) {
         if self.inView == nil {
             self.inView = GetAppWindow()
         }
         self.show(in: self.inView, animated: animated, completion: completion)
     }
     
-    public func hidden(animated: Bool, completion: (() -> Void)?) {
+    public func jh_hidden(animated: Bool, completion: (() -> Void)?) {
         self.hiddenWith(animated: animated, completion: completion)
     }
     
     public func shouldPopup(in viewController: UIViewController?) -> Bool {
         return true 
+    }
+}
+
+extension JHGrandPopupViewController: @retroactive JHPopupViewProtocol {
+    public var window: UIWindow? {
+        return self.view.window
+    }
+    
+    public var identifier: String {
+        return ""
+    }
+    
+    public var priority: Int {
+        return 0
+    }
+    
+    public func jh_show(animated: Bool, completion: (() -> Void)?) {
+        self.show(in: UIViewController.topViewController()!, animated: animated, completion: completion)
+    }
+    
+    public func jh_hidden(animated: Bool, completion: (() -> Void)?) {
+        self.hiddenWith(animated: animated, completion: completion)
+    }
+    
+    public func shouldPopup(in viewController: UIViewController?) -> Bool {
+        return true
     }
 }

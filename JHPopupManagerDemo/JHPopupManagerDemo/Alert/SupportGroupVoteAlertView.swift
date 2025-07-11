@@ -142,8 +142,6 @@ class SupportGroupVoteAlertView: JHGrandPopupView, UICollectionViewDelegateFlowL
     @objc func confirmBtnDidClicked(sender: Any?) -> Void {
         confirmBtnDidClickedBlk?(self.selectedItem)
         hidden(completion: nil)
-        
-//        JHPopupManager.hidden(popupView: self, animated: true, completion: nil)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

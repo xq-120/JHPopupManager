@@ -15,12 +15,14 @@ public class JHPopupManager {
     
     private var curPopupItem: JHPopupItem?
     
+    private var isShowingInProgress: Bool = false
+    
     private init() {
         let observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.allActivities.rawValue, true, 0) { [weak self] ob, activity in
             guard let self = self else {return}
             self.handleRunLoopActivity(activity: activity)
         }
-        CFRunLoopAddObserver(CFRunLoopGetMain(), observer, .commonModes)
+        CFRunLoopAddObserver(CFRunLoopGetMain(), observer, .defaultMode)
     }
     
     func handleRunLoopActivity(activity: CFRunLoopActivity) {
@@ -56,7 +58,7 @@ public class JHPopupManager {
     
     func hidden(popupView: JHPopupViewProtocol, animated: Bool, completion: (() -> Void)?) {
         if curPopupItem?.popupView === popupView {
-            popupView.hidden(animated: animated, completion: completion)
+            popupView.jh_hidden(animated: animated, completion: completion)
             curPopupItem = nil
         } else {
             remove(popupView)
@@ -71,6 +73,7 @@ public class JHPopupManager {
     
     func enqueue(_ item: JHPopupItem) {
         popupItems.append(item)
+        dequeue()
     }
     
     func dequeue() {
@@ -78,9 +81,11 @@ public class JHPopupManager {
             return
         }
         
-        if curPopupItem != nil {
+        if isShowingInProgress || curPopupItem?.popupView.window != nil {
             return
         }
+        
+        curPopupItem = nil
         
         var poppingItemIndex: Int? = nil
         for (index, item) in popupItems.enumerated() {
@@ -96,8 +101,13 @@ public class JHPopupManager {
     }
     
     func show(_ item: JHPopupItem) {
+        assert(Thread.isMainThread)
         curPopupItem = item
-        item.popupView.show(animated: item.animated, completion: item.onShowCompletion)
+        isShowingInProgress = true
+        item.popupView.jh_show(animated: item.animated) { [weak self] in
+            item.onShowCompletion?()
+            self?.isShowingInProgress = false
+        }
     }
     
     //MARK: - 工具方法

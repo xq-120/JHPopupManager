@@ -41,6 +41,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         chatBtn.frame = CGRect(x: 50, y: CGRectGetMaxY(submitBtn.frame) + 100, width: 200, height: 44)
         
         let alert1 = AuditionEndBuyAlertView.init()
+        alert1.inView = self.view
         JHPopupManager.show(popupView: alert1, animated: true) {
             NSLog("AuditionEndBuyAlertView弹出")
         }

@@ -116,19 +116,20 @@ class BroadcastBeginAlertView: JHGrandPopupView {
         liveTitleLabel.text = "郁金香狂热"
     }
     
+    override func show(in view: UIView?, animated: Bool, completion: (() -> Void)? = nil) {
+        super.show(in: view, animated: animated, completion: completion)
+    }
+    
     @objc func closeBtnDidClicked(sender: UIButton) {
         hiddenWith(animated: true, completion: self.closeBtnDidClickedBlk)
-//        JHPopupManager.hidden(popupView: self, animated: false, completion: self.closeBtnDidClickedBlk)
     }
     
     @objc func sureBtnDidClicked(sender: UIButton) {
         hidden(completion: self.sureBtnDidClickedBlk)
-//        JHPopupManager.hidden(popupView: self, animated: true, completion: self.sureBtnDidClickedBlk)
     }
     
     @objc private func cancelBtnDidClicked(sender: UIButton) {
         hidden(completion: self.cancelBtnDidClickedBlk)
-//        JHPopupManager.hidden(popupView: self, animated: true, completion: self.cancelBtnDidClickedBlk)
     }
     
     func initialSubviews() {

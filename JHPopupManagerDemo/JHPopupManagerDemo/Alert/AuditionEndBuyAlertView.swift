@@ -87,16 +87,13 @@ class AuditionEndBuyAlertView: JHGrandPopupView  {
     }
     
     @objc func closeBtnDidClicked(sender: UIButton) -> Void {
-//        JHPopupManager.hidden(popupView: self, animated: true, completion: nil)
         hidden()
     }
     
     @objc func confirmBtnDidClicked(sender: UIButton) -> Void {
-//        JHPopupManager.hidden(popupView: self, animated: true, completion: buyBtnDidClickedBlk)
-        hidden(completion: {
-            let vc = UIViewController.topViewController(base: GetAppWindow()?.rootViewController)
-            vc?.navigationController?.pushViewController(TeacherDetailViewController.init(), animated: true)
-        })
+        let vc = UIViewController.topViewController(base: GetAppWindow()?.rootViewController)
+        vc?.navigationController?.pushViewController(TeacherDetailViewController.init(), animated: true)
+        hidden()
     }
     
     func initialSubviews() {
