@@ -6,11 +6,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JHGrandPopupEnumDefine.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol JHGrandPopupViewControllerAnimationProtocol <UIViewControllerAnimatedTransitioning>
+
+@property (nonatomic, assign) JHGrandPopupAnimateDirectionType directionType;
+
+@end
+
 // 弹窗为UIViewController
 @interface JHGrandPopupViewController : UIViewController
+
+@property (nonatomic, weak, nullable) UIViewController *inViewController;
 
 @property (nonatomic, strong, readonly) UIView *backView;
 
@@ -22,11 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 在设置从左到右，从上到下的约束后，contentView的size是自适应的。
 @property (nonatomic, readonly, strong) UIView * _Nonnull contentView;
 
-/// 弹窗出现动画。默认为FadeInAnimation,可自定义。
-@property (nonatomic, strong) id<UIViewControllerAnimatedTransitioning> inAnimator;
-
-/// 弹窗消失动画。默认为FadeOutAnimation,可自定义。
-@property (nonatomic, strong) id<UIViewControllerAnimatedTransitioning> outAnimator;
+/// 弹窗动画。默认为Fade,可自定义。
+@property (nonatomic, strong) id<JHGrandPopupViewControllerAnimationProtocol> animator;
 
 - (instancetype)init;
 

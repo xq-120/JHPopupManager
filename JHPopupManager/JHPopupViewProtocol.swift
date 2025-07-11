@@ -9,15 +9,13 @@ import Foundation
 
 public protocol JHPopupViewProtocol: AnyObject {
     
-    var identifier: String { get set }
+    var identifier: String { get }
     
-    var priority: Int { get set }
+    var priority: Int { get }
     
-    func show(in view: UIView?, animated: Bool, completion: (() -> Void)?)
+    func show(animated: Bool, completion: (() -> Void)?)
     
-    func show(in viewController: UIViewController?, animated: Bool, completion: (() -> Void)?)
-    
-    func hidden(withAnimated animated: Bool, completion: (() -> Void)?)
+    func hidden(animated: Bool, completion: (() -> Void)?)
     
     func shouldPopup(in viewController: UIViewController?) -> Bool
 }
@@ -32,11 +30,9 @@ extension JHPopupViewProtocol {
         return 0
     }
     
-    func show(in view: UIView?, animated: Bool, completion: (() -> Void)?) {}
-    
-    func show(in viewController: UIViewController?, animated: Bool, completion: (() -> Void)?) {}
+    func show(animated: Bool, completion: (() -> Void)?) {}
      
-    func hidden(withAnimated animated: Bool, completion: (() -> Void)?) {}
+    func hidden(animated: Bool, completion: (() -> Void)?) {}
     
     func shouldPopup(in viewController: UIViewController?) -> Bool {
         return true

@@ -6,8 +6,7 @@
 //
 
 #import "JHGrandPopupViewController.h"
-#import "JHGrandPopupFadeInAnimation.h"
-#import "JHGrandPopupFadeOutAnimation.h"
+#import "JHGrandPopupFadeAnimation.h"
 
 @interface JHGrandPopupViewController ()<UIViewControllerTransitioningDelegate>
 
@@ -22,11 +21,22 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _shouldDismissOnTouchBackView = NO;
-        _inAnimator = [[JHGrandPopupFadeInAnimation alloc] init];
-        _outAnimator = [[JHGrandPopupFadeOutAnimation alloc] init];
+        _animator = [[JHGrandPopupFadeAnimation alloc] init];
     }
     return self;
 }
+
+//- (UIStatusBarStyle)preferredStatusBarStyle {
+//    if (@available(iOS 13.0, *)) {
+//        return UIStatusBarStyleDarkContent;
+//    } else {
+//        return UIStatusBarStyleDefault;
+//    }
+//}
+//
+//- (BOOL)modalPresentationCapturesStatusBarAppearance {
+//    return YES;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -53,6 +63,7 @@
 }
 
 - (void)showIn:(UIViewController *)viewController isWrapInNavigationController:(BOOL)isWrap animated:(BOOL)animated completion:(void (^)(void))completion {
+    self.inViewController = viewController;
     UIViewController *presentedViewController = self;
     if (isWrap) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self];
@@ -74,11 +85,13 @@
 #pragma mark- UIViewControllerTransitioningDelegate
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    return self.inAnimator;
+    self.animator.directionType = JHGrandPopupAnimateDirectionIn;
+    return self.animator;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    return self.outAnimator;
+    self.animator.directionType = JHGrandPopupAnimateDirectionOut;
+    return self.animator;
 }
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {

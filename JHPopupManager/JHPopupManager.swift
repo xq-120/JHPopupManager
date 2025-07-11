@@ -65,7 +65,7 @@ public class JHPopupManager {
     
     func hidden(popupView: JHPopupViewProtocol, animated: Bool, completion: (() -> Void)?) {
         if curPopupItem?.popupView === popupView {
-            popupView.hidden(withAnimated: animated, completion: completion)
+            popupView.hidden(animated: animated, completion: completion)
             curPopupItem = nil
         } else {
             remove(popupView)
@@ -108,9 +108,9 @@ public class JHPopupManager {
         curPopupItem = item
         
         if item.type == .view {
-            item.popupView.show(in: item.view, animated: item.animated, completion: item.onShowCompletion)
+            item.popupView.show(animated: item.animated, completion: item.onShowCompletion)
         } else {
-            item.popupView.show(in: item.viewController, animated: item.animated, completion: item.onShowCompletion)
+            item.popupView.show(animated: item.animated, completion: item.onShowCompletion)
         }
     }
     

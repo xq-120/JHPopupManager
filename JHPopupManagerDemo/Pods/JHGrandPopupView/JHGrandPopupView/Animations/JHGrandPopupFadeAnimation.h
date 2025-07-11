@@ -10,8 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JHGrandPopupFadeInAnimation : JHGrandPopupBaseAnimation
+@interface JHGrandPopupFadeAnimation : JHGrandPopupBaseAnimation
 
+@property (nonatomic, assign) BOOL disableAnimateInZoom;
+
+@property (nonatomic, assign) BOOL disableAnimateOutZoom;
 
 @end
 

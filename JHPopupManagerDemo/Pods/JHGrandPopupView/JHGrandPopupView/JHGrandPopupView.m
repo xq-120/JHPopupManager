@@ -6,8 +6,7 @@
 //
 
 #import "JHGrandPopupView.h"
-#import "JHGrandPopupFadeInAnimation.h"
-#import "JHGrandPopupFadeOutAnimation.h"
+#import "JHGrandPopupFadeAnimation.h"
 
 @interface JHGrandPopupView ()
 
@@ -31,8 +30,7 @@
 }
 
 - (void)_commonInit {
-    self.inAnimator = JHGrandPopupFadeInAnimation.new;
-    self.outAnimator = JHGrandPopupFadeOutAnimation.new;
+    self.animator = JHGrandPopupFadeAnimation.new;
     
     self.backgroundColor = [UIColor clearColor];
     _shouldDismissOnTouchBackView = NO;
@@ -63,12 +61,13 @@
         self.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
     }
     [view addSubview:self];
+    self.inView = view;
     
     if (!animated) {
         completion == nil ? nil : completion();
         return;
     }
-    [self.inAnimator animateWithPopupView:self completion:completion];
+    [self.animator animateInWithPopupView:self completion:completion];
 }
 
 - (void)hiddenWithCompletion:(void (^)(void))completion {
@@ -83,8 +82,13 @@
         }
         return;
     }
-    [self.outAnimator animateWithPopupView:self completion:^{
-        [self removeFromSuperview];
+    __weak typeof(self) weakSelf = self;
+    [self.animator animateOutWithPopupView:self completion:^{
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf == nil) {
+            return;
+        }
+        [strongSelf removeFromSuperview];
         if (completion) {
             completion();
         }

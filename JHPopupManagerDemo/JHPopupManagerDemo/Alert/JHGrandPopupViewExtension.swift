@@ -10,31 +10,19 @@ import JHPopupManager
 import JHGrandPopupView //oc类
 
 extension JHGrandPopupView: @retroactive JHPopupViewProtocol {
-    
-    
     public var identifier: String {
-        get {
-            return ""
-        }
-        set(newValue) {
-            
-        }
+        return ""
     }
     
     public var priority: Int {
-        get {
-            return 0
-        }
-        set(newValue) {
-            
-        }
+        return 0
     }
     
-    public func show(in viewController: UIViewController?, animated: Bool, completion: (() -> Void)?) {
-        
+    public func show(animated: Bool, completion: (() -> Void)?) {
+        self.show(in: self.inView, animated: animated, completion: completion)
     }
     
-    public func hidden(withAnimated animated: Bool, completion: (() -> Void)?) {
+    public func hidden(animated: Bool, completion: (() -> Void)?) {
         self.hiddenWith(animated: animated, completion: completion)
     }
     
