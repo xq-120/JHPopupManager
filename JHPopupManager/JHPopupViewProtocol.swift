@@ -9,10 +9,11 @@ import Foundation
 
 public protocol JHPopupViewProtocol: AnyObject {
     
-    var window: UIWindow? { get }
+    var isShowing: Bool { get }
     
     var identifier: String { get }
     
+    /// 优先级默认0，数值越大优先级越高
     var priority: Int { get }
     
     /// 弹出弹窗
@@ -31,6 +32,16 @@ public protocol JHPopupViewProtocol: AnyObject {
 }
 
 extension JHPopupViewProtocol {
+    
+    var isShowing: Bool {
+        if let vc = self as? UIViewController {
+            return vc.view.window != nil
+        } else if let view = self as? UIView {
+            return view.window != nil
+        } else {
+            return false
+        }
+    }
     
     var identifier: String {
         return String(describing: self)

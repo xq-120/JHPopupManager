@@ -15,8 +15,6 @@ public class JHPopupManager {
     
     private var curPopupItem: JHPopupItem?
     
-    private var isShowingInProgress: Bool = false
-    
     private init() {
         let observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.allActivities.rawValue, true, 0) { [weak self] ob, activity in
             guard let self = self else {return}
@@ -28,20 +26,25 @@ public class JHPopupManager {
     func handleRunLoopActivity(activity: CFRunLoopActivity) {
         switch activity {
         case .entry:
-            NSLog("activity-->entry")
+//            NSLog("activity-->entry")
+            break;
         case .beforeTimers:
-            NSLog("activity-->beforeTimers")
+//            NSLog("activity-->beforeTimers")
+            break;
         case .beforeSources:
-            NSLog("activity-->beforeSources")
+//            NSLog("activity-->beforeSources")
+            break;
         case .beforeWaiting:
-            NSLog("activity-->beforeWaiting")
+//            NSLog("activity-->beforeWaiting")
             dequeue()
         case .afterWaiting:
-            NSLog("activity-->afterWaiting")
+//            NSLog("activity-->afterWaiting")
+            break;
         case .exit:
-            NSLog("activity-->exit")
+//            NSLog("activity-->exit")
+            break;
         default:
-            NSLog("未知")
+            break;
         }
     }
     
@@ -73,23 +76,27 @@ public class JHPopupManager {
     
     func enqueue(_ item: JHPopupItem) {
         popupItems.append(item)
+        popupItems.sort(by: {$0.popupView.priority > $1.popupView.priority})
         dequeue()
     }
     
+    func isShowing() -> Bool {
+        guard let curPopupItem = curPopupItem else { return false }
+        if curPopupItem.isShowingInProgress || curPopupItem.popupView.isShowing {
+            return true
+        }
+        return false
+    }
+    
     func dequeue() {
-        if popupItems.isEmpty {
+        if isShowing() {
             return
         }
-        
-        if isShowingInProgress || curPopupItem?.popupView.window != nil {
-            return
-        }
-        
         curPopupItem = nil
         
         var poppingItemIndex: Int? = nil
         for (index, item) in popupItems.enumerated() {
-            if item.popupView.shouldPopup(in: topViewController()) {
+            if item.popupView.shouldPopup(in: JHUtils.topViewController()) {
                 poppingItemIndex = index
                 break
             }
@@ -103,39 +110,19 @@ public class JHPopupManager {
     func show(_ item: JHPopupItem) {
         assert(Thread.isMainThread)
         curPopupItem = item
-        isShowingInProgress = true
-        item.popupView.jh_show(animated: item.animated) { [weak self] in
+        item.isShowingInProgress = true
+        item.popupView.jh_show(animated: item.animated) {
             item.onShowCompletion?()
-            self?.isShowingInProgress = false
+            item.isShowingInProgress = false
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            if item.isShowingInProgress {
+                item.isShowingInProgress = false
+            }
+        })
     }
     
-    //MARK: - 工具方法
-    func topViewController() -> UIViewController? {
-        let window = UIApplication.shared.delegate?.window
-        guard window != nil, let rootViewController = window?!.rootViewController else {
-            return nil
-        }
-        return self.getTopViewController(controller: rootViewController)
-    }
     
-    func getTopViewController(controller: UIViewController) -> UIViewController {
-        if let presentedViewController = controller.presentedViewController {
-            return self.getTopViewController(controller: presentedViewController)
-        } else if let navigationController = controller as? UINavigationController {
-            if let topViewController = navigationController.topViewController {
-                return self.getTopViewController(controller: topViewController)
-            }
-            return navigationController
-        } else if let tabbarController = controller as? UITabBarController {
-            if let selectedViewController = tabbarController.selectedViewController {
-                return self.getTopViewController(controller: selectedViewController)
-            }
-            return tabbarController
-        } else {
-            return controller
-        }
-    }
 }
 
 

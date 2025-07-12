@@ -30,16 +30,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        _ = JHPopupManager.manager
-        
         view.addSubview(submitBtn)
-        view.addSubview(chatBtn)
         
         submitBtn.sizeToFit()
         submitBtn.center = view.center
         
         chatBtn.frame = CGRect(x: 50, y: CGRectGetMaxY(submitBtn.frame) + 100, width: 200, height: 44)
         
+        let alert0 = XQHelloWorldAlertView(frame: CGRect.init(x: 0, y: 0, width: 222, height: 222))
+        alert0.inView = self.view
+        JHPopupManager.show(popupView: alert0, animated: true) {
+            NSLog("AuditionEndBuyAlertView弹出")
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            alert0.jh_hidden(animated: true, completion: nil)
+        })
         let alert1 = AuditionEndBuyAlertView.init()
         alert1.inView = self.view
         JHPopupManager.show(popupView: alert1, animated: true) {
@@ -50,7 +55,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             NSLog("BroadcastBeginAlertView弹出")
         }
         let alert3 = LoveKeyAlertPopupView.init()
+        alert3.priority = 100
         JHPopupManager.show(popupView: alert3, animated: true) {
+            NSLog("LoveKeyAlertPopupView弹出")
+        }
+        let alert3_1 = JKPublishCommentAlertViewController.init()
+        JHPopupManager.show(popupView: alert3_1, animated: true) {
             NSLog("LoveKeyAlertPopupView弹出")
         }
         let alert4 = SupportGroupVoteAlertView.init()

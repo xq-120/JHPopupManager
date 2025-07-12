@@ -25,6 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) UIView *inView;
 
+@property (nonatomic, assign) BOOL isShowing;
+
+@property (nonatomic, assign) NSInteger priority;
+
+@property (nonatomic, copy) NSString *identify;
+
 @property (nonatomic, strong, readonly) UIView *backView;
 
 @property (nonatomic, assign) BOOL shouldDismissOnTouchBackView;

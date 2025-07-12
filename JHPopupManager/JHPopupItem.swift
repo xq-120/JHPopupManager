@@ -12,6 +12,8 @@ class JHPopupItem {
     
     var animated: Bool = true
     
+    var isShowingInProgress: Bool = false
+    
     var onShowCompletion: (()->Void)?
     
     init(popupView: JHPopupViewProtocol) {

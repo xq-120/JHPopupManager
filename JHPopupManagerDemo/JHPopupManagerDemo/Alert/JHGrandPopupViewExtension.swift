@@ -10,12 +10,12 @@ import JHPopupManager
 import JHGrandPopupView //oc类
 
 extension JHGrandPopupView: @retroactive JHPopupViewProtocol {
-    public var identifier: String {
-        return ""
+    public var isShowing: Bool {
+        return self.window != nil
     }
     
-    public var priority: Int {
-        return 0
+    public var identifier: String {
+        return ""
     }
     
     public func jh_show(animated: Bool, completion: (() -> Void)?) {
@@ -35,8 +35,8 @@ extension JHGrandPopupView: @retroactive JHPopupViewProtocol {
 }
 
 extension JHGrandPopupViewController: @retroactive JHPopupViewProtocol {
-    public var window: UIWindow? {
-        return self.view.window
+    public var isShowing: Bool {
+        return self.view.window != nil
     }
     
     public var identifier: String {
@@ -48,7 +48,10 @@ extension JHGrandPopupViewController: @retroactive JHPopupViewProtocol {
     }
     
     public func jh_show(animated: Bool, completion: (() -> Void)?) {
-        self.show(in: UIViewController.topViewController()!, animated: animated, completion: completion)
+        if self.inViewController == nil {
+            self.inViewController = JHUtils.topViewController()!
+        }
+        self.show(in: self.inViewController!, animated: animated, completion: completion)
     }
     
     public func jh_hidden(animated: Bool, completion: (() -> Void)?) {
